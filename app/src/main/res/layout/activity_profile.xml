@@ -52,7 +52,7 @@
                 android:layout_below="@id/view1"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Popatlal"
+                android:text="Final Project "
                 android:textSize="20dp" />
 
             <TextView
@@ -79,7 +79,7 @@
                 android:layout_below="@id/view2"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="pospatlal@gmail.com"
+                android:text="finalproject483@gmail.com"
                 android:textSize="20dp" />
 
             <!-- Additional User Information -->

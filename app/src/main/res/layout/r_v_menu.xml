@@ -13,8 +13,9 @@
     <!-- ImageView for Background Image -->
     <ImageView
         android:id="@+id/menuImg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="100dp"
+        android:layout_gravity="end|bottom"
+        android:layout_height="100dp"
         android:scaleType="fitEnd"/>
 
     <TextView

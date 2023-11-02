@@ -1,17 +1,29 @@
 package com.example.loginanimation;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
+import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -20,18 +32,20 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private ImageView profileImage;
     LottieAnimationView animationView1,animationView2;
+    ActivityResultLauncher<Intent> activityResultLauncher;
+    ImageView profileimage;
     private EditText nameEditText, emailEditText, addressEditText, phoneEditText, usernameEditText, passwordEditText;
     private TextView registerButton;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        profileImage = findViewById(R.id.profileImage);
         nameEditText = findViewById(R.id.nameEditText);
+        profileimage = findViewById(R.id.profileImageReg);
         emailEditText = findViewById(R.id.emailEditText);
         addressEditText = findViewById(R.id.addressEditText);
         animationView1 = findViewById(R.id.animationView);
@@ -40,6 +54,51 @@ public class RegisterActivity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         registerButton = findViewById(R.id.registerButton);
+
+
+        profileimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                builder.setTitle("Choose Image Source");
+                builder.setItems(new CharSequence[]{"Camera", "Gallery"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0) {
+                            // User chose the Camera option
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            activityResultLauncher.launch(intent);
+                        } else if (which == 1) {
+                            // User chose the Gallery option
+                            Intent intent1 = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent1, 3);
+                        }
+                    }
+                });
+                builder.show();
+            }
+        });
+
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == RESULT_OK && result.getData() !=null)
+                        {
+                            Bitmap bp = null;
+                            Bundle extras = result.getData().getExtras();
+                            if (extras != null)
+                            {
+                                bp = (Bitmap) extras.get("data");
+                            }
+
+                            profileimage.setImageBitmap(bp);
+                        } else if (result.getResultCode() == RESULT_CANCELED) {
+                            Toast.makeText(RegisterActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
 
         passwordEditText.addTextChangedListener(new TextWatcher() {
@@ -137,6 +196,17 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         return isValid;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (data != null){
+            Uri selectedImage = data.getData();
+            Toast.makeText(this, ""+data.getData(), Toast.LENGTH_SHORT).show();
+            profileimage.setImageURI(selectedImage);
+        }
     }
 
     private boolean isPasswordValid(EditText passwordEditText) {
