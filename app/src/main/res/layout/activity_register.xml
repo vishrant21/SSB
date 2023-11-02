@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/tool_Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="40dp">
+
+
+            <ImageView
+                android:id="@+id/toolbarImage"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="left"
+                android:src="@drawable/my_logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Sukh Shanti Bhuvan"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
+    </androidx.cardview.widget.CardView>
+
+<ScrollView
+    android:fillViewport="true"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            app:cardCornerRadius="40dp">
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center"
+            android:src="@drawable/baseline_person_24"/>
+        </androidx.cardview.widget.CardView>
+
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:padding="15dp"
+            android:background="@drawable/border"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="16dp"/>
+
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:padding="15dp"
+            android:background="@drawable/border"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:layout_marginBottom="16dp"/>
+
+        <EditText
+            android:id="@+id/addressEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="@drawable/border"
+            android:hint="Address"
+            android:layout_marginBottom="16dp"/>
+
+        <EditText
+            android:id="@+id/phoneEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="@drawable/border"
+            android:hint="Phone"
+            android:layout_marginBottom="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/border"
+            android:weightSum="3">
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="match_parent"
+            android:layout_gravity="top"
+            android:layout_weight="0.5"
+            android:layout_marginStart="5dp"
+            android:layout_height="wrap_content"
+            android:hint="Username"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:visibility="gone"
+                app:lottie_url="https://lottie.host/87ded585-9ca4-4f1c-b509-9f198f8f7f79/RQgIzHzaoQ.json"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:visibility="gone"
+                app:lottie_url="https://lottie.host/3f7a1358-b9c7-40b9-9106-faa2e412d29c/FDRvn0F1Op.json"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="false"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/border"
+            android:weightSum="3">
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_gravity="top"
+                android:layout_marginStart="5dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:hint="Password"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:visibility="gone"
+                app:lottie_url="https://lottie.host/87ded585-9ca4-4f1c-b509-9f198f8f7f79/RQgIzHzaoQ.json"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:visibility="gone"
+                app:lottie_url="https://lottie.host/3f7a1358-b9c7-40b9-9106-faa2e412d29c/FDRvn0F1Op.json"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="false"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:padding="15dp"
+            android:layout_margin="30dp"
+            android:textSize="18dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:background="@drawable/border"
+            android:id="@+id/registerButton"/>
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>

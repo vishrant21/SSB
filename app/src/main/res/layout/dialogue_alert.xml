@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="100dp"
+        android:layout_gravity="center"
+        android:layout_height="100dp"
+        android:visibility="visible"
+        app:lottie_url="https://lottie.host/8e5aa1a3-5bf0-436c-8e67-d8d5c90131fe/XhkI2jb4I5.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_gravity="center"
+        android:textSize="15dp"
+        android:textColor="#FF0000"
+        android:textStyle="bold"
+        android:id="@+id/txtAlert"
+        android:text="Your message here" />
+
+</LinearLayout>

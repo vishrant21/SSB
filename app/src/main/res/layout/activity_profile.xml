@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:weightSum="3"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.8">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Circular Profile Image -->
+            <ImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/circular_background"
+                android:src="@drawable/baseline_person_24" />
+
+            <!-- User Information -->
+            <TextView
+                android:id="@+id/lblName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgProfile"
+                android:layout_marginTop="20dp"
+                android:text="Name"
+                android:textColor="#9E9D99"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/lblName"
+                android:background="#DDDDDD" />
+
+            <TextView
+                android:id="@+id/txtPname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view1"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Popatlal"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/lblEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtPname"
+                android:layout_marginTop="20dp"
+                android:text="Email Address"
+                android:textColor="#9E9D99"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/lblEmail"
+                android:background="#DDDDDD" />
+
+            <TextView
+                android:id="@+id/txtEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view2"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="pospatlal@gmail.com"
+                android:textSize="20dp" />
+
+            <!-- Additional User Information -->
+            <TextView
+                android:id="@+id/lblAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtEmail"
+                android:layout_marginTop="20dp"
+                android:text="Address"
+                android:textColor="#9E9D99"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/lblAddress"
+                android:background="#DDDDDD" />
+
+            <TextView
+                android:id="@+id/txtAddress"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view3"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="481 GreenStone Drive Kamloops, BC - V2C1N8"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/lblPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtAddress"
+                android:layout_marginTop="20dp"
+                android:text="Phone Number"
+                android:textColor="#9E9D99"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/lblPhone"
+                android:background="#DDDDDD" />
+
+            <TextView
+                android:id="@+id/txtPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view4"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="+1 250 879 3397"
+                android:textSize="20dp" />
+
+            <!-- Edit Profile Button -->
+
+            <TextView
+                android:id="@+id/edit_profile_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtPhone"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border"
+                android:elevation="30dp"
+                android:padding="10dp"
+                android:text="Edit Profile"
+                android:textSize="20sp" />
+
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/my_navigator"
+        android:layout_weight="0.2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:itemActiveIndicatorStyle="@style/Widget.Material3.NavigationRailView"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:itemBackground="@color/white"
+        app:menu="@menu/navigation_bar"/>
+</LinearLayout>

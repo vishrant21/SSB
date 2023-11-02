@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "155632905257",
+    "project_id": "login-animation-13ee1",
+    "storage_bucket": "login-animation-13ee1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155632905257:android:c039b488cc24900bab4038",
+        "android_client_info": {
+          "package_name": "com.example.loginanimation"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQpiQkZRp_rzjmAlFBF8xPuN3c2-UITW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
