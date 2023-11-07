@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -42,10 +43,11 @@ public class RegisterActivity extends AppCompatActivity {
     LottieAnimationView animationView1, animationView2,animationView3, animationView4;
     ActivityResultLauncher<Intent> activityResultLauncher;
 
+    LottieAnimationView viewAnime;
     ArrayList<String> userName = new ArrayList<>();
     ImageView profileimage;
     UserInfo userInfo = new UserInfo();
-    private EditText nameEditText, emailEditText, addressEditText, phoneEditText, usernameEditText, passwordEditText;
+    private EditText nameEditText, usernameEditText, passwordEditText;
     private TextView registerButton;
 
     @SuppressLint("MissingInflatedId")
@@ -63,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.nameEditText);
         animationView3 = findViewById(R.id.animationView3);
         animationView4 = findViewById(R.id.animationView4);
+        viewAnime = findViewById(R.id.viewAnime);
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         registerButton = findViewById(R.id.registerButton);
@@ -212,8 +215,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 emailRef.updateChildren(al_email);
                                 DatabaseReference passRef = reference.child("Password");
                                 passRef.updateChildren(al_pass);
-                                startActivity(intent);
-                                finish();
+
+
 
                             }
                             @Override
@@ -221,7 +224,16 @@ public class RegisterActivity extends AppCompatActivity {
 
                             }
                         });
+                        viewAnime.setVisibility(View.VISIBLE);
+                        viewAnime.playAnimation();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
 
+                            public void run() {
+                                startActivity(intent);
+                                finish();
+                            }
+                        },viewAnime.getDuration());
 
                     }
                     else
