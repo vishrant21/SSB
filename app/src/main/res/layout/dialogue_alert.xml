@@ -6,26 +6,118 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationView"
-        android:layout_width="100dp"
-        android:layout_gravity="center"
-        android:layout_height="100dp"
-        android:visibility="visible"
-        app:lottie_url="https://lottie.host/8e5aa1a3-5bf0-436c-8e67-d8d5c90131fe/XhkI2jb4I5.json"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="false"/>
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_gravity="center"
-        android:textSize="15dp"
-        android:textColor="#FF0000"
-        android:textStyle="bold"
-        android:id="@+id/txtAlert"
-        android:text="Your message here" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/logoImageView"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:id="@+id/loginLayout">
+
+        <!-- Company Logo (Replace with your logo) -->
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <!-- Username Field -->
+
+
+            <!-- New User Registration Button -->
+
+
+            <TextView
+                android:id="@+id/btnRegister"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="#ef5c32"
+                android:text="Admin Login Only "
+                android:textColor="#411BE4"
+                android:textSize="25dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextColor="#40495c"
+                android:id="@+id/usernameEditTextL"
+                android:autofillHints="username"
+                android:layout_below="@+id/btnRegister"
+                android:padding="5dp"
+                android:gravity="center_vertical">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/usernameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:textColorHint="#40495c"
+                android:hint="User Name"
+                android:gravity="center"
+                android:background="@drawable/border"
+                android:padding="13dp"
+                android:textColor="#40495c"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Password Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleContentDescription=""
+                app:hintTextColor="#40495c"
+                android:autofillHints="password"
+                android:padding="5dp"
+                android:layout_below="@+id/usernameEditTextL"
+                android:gravity="center_vertical">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:password="true"
+                    android:layout_marginTop="10dp"
+                    android:textColorHint="#40495c"
+                    android:hint="Password"
+                    android:gravity="center"
+                    android:background="@drawable/border"
+                    android:padding="10dp"
+                    android:textColor="#40495c"/>
+
+                <!-- Show/Hide Password Toggle Button -->
+                <!-- You'll need to provide icons for show and hide -->
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+
+        <!-- Forgot Password TextView -->
+        <TextView
+            android:id="@+id/forgotPasswordTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            android:text="Forgot Password?"
+            android:textColor="#411BE4"
+            android:layout_gravity="end" />
+
+        <Button
+            android:id="@+id/btnAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#ef5c32"
+            android:text="Login"
+            android:textSize="20dp"
+            android:layout_margin="10dp"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
 
 </LinearLayout>

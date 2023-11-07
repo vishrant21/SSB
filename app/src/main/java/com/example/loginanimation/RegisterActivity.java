@@ -7,13 +7,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
-import android.provider.MediaStore;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,18 +22,29 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    LottieAnimationView animationView1,animationView2;
+    LottieAnimationView animationView1, animationView2,animationView3, animationView4;
     ActivityResultLauncher<Intent> activityResultLauncher;
+
+    ArrayList<String> userName = new ArrayList<>();
     ImageView profileimage;
+    UserInfo userInfo = new UserInfo();
     private EditText nameEditText, emailEditText, addressEditText, phoneEditText, usernameEditText, passwordEditText;
     private TextView registerButton;
 
@@ -45,12 +55,14 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         nameEditText = findViewById(R.id.nameEditText);
+
+        FirebaseDatabase instance = FirebaseDatabase.getInstance();
         profileimage = findViewById(R.id.profileImageReg);
-        emailEditText = findViewById(R.id.emailEditText);
-        addressEditText = findViewById(R.id.addressEditText);
         animationView1 = findViewById(R.id.animationView);
         animationView2 = findViewById(R.id.animationView2);
-        phoneEditText = findViewById(R.id.phoneEditText);
+        nameEditText = findViewById(R.id.nameEditText);
+        animationView3 = findViewById(R.id.animationView3);
+        animationView4 = findViewById(R.id.animationView4);
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         registerButton = findViewById(R.id.registerButton);
@@ -101,6 +113,51 @@ public class RegisterActivity extends AppCompatActivity {
                 });
 
 
+        DatabaseReference reference = instance.getReference("Users");
+        usernameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        userName = (ArrayList<String>) snapshot.child("Email").getValue();
+
+                        String myUname = usernameEditText.getText().toString().trim();
+                        if (userName.contains(myUname) || (!isEmailValid(myUname)))
+                        {
+                            animationView3.setVisibility(View.GONE);
+                            animationView4.setVisibility(View.VISIBLE);
+                            animationView4.playAnimation();
+
+
+                        } else if ((!userName.contains(myUname)) && (isEmailValid(myUname)))
+                        {
+                            animationView4.setVisibility(View.GONE);
+                            animationView3.setVisibility(View.VISIBLE);
+                            animationView3.playAnimation();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+
+            }
+        });
         passwordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -126,8 +183,6 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
-
             }
         });
 
@@ -135,69 +190,55 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validateRegistration() && isPasswordValid(passwordEditText)) {
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+
+                if (isPasswordValid(passwordEditText) && isEmailValid(usernameEditText.getText().toString().trim()))
+                {
+                    if (!nameEditText.getText().toString().equals(null))
+                    {
+                        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+
+                        Map<String,Object> al_name = new HashMap<>();
+                        Map<String,Object> al_email = new HashMap<>();
+                        Map<String,Object> al_pass = new HashMap<>();
+                        al_name.put(userName.size()+"",nameEditText.getText().toString().trim());
+                        al_email.put(userName.size()+"",usernameEditText.getText().toString().trim());
+                        al_pass.put(userName.size()+"",passwordEditText.getText().toString().trim());
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                DatabaseReference nameRef = reference.child("Name");
+                                nameRef.updateChildren(al_name);
+                                DatabaseReference emailRef = reference.child("Email");
+                                emailRef.updateChildren(al_email);
+                                DatabaseReference passRef = reference.child("Password");
+                                passRef.updateChildren(al_pass);
+                                startActivity(intent);
+                                finish();
+
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
+                    }
+                    else
+                    {
+                        nameEditText.setError("Please enter Name First");
+                    }
+                }
+                else
+                {
+                    Toast.makeText(RegisterActivity.this, "Please enter valid credentials", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+
+
     }
-
-    private boolean validateRegistration() {
-        boolean isValid = true;
-
-        // Name Validation
-        String name = nameEditText.getText().toString().trim();
-        if (name.isEmpty()) {
-            nameEditText.setError("Name is required");
-            nameEditText.requestFocus();
-            isValid = false;
-        }
-
-        // Email Validation
-        String email = emailEditText.getText().toString().trim();
-        if (email.isEmpty()) {
-            emailEditText.setError("Email is required");
-            emailEditText.requestFocus();
-            isValid = false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailEditText.setError("Enter a valid email address");
-            emailEditText.requestFocus();
-            isValid = false;
-        }
-
-        // Address Validation
-        String address = addressEditText.getText().toString().trim();
-        if (address.isEmpty()) {
-            addressEditText.setError("Address is required");
-            addressEditText.requestFocus();
-            isValid = false;
-        }
-
-        // Phone Validation
-        String phone = phoneEditText.getText().toString().trim();
-        if (phone.isEmpty()) {
-            phoneEditText.setError("Phone number is required");
-            phoneEditText.requestFocus();
-            isValid = false;
-        } else if (phone.length() != 10) {
-            phoneEditText.setError("Phone number should be 10 digits");
-            phoneEditText.requestFocus();
-            isValid = false;
-        }
-
-        // Username Validation
-        String username = usernameEditText.getText().toString().trim();
-        if (username.isEmpty()) {
-            usernameEditText.setError("Username is required");
-            usernameEditText.requestFocus();
-            isValid = false;
-        }
-
-        return isValid;
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -219,5 +260,9 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    public boolean isEmailValid(String email) {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }

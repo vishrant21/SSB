@@ -1,13 +1,10 @@
 package com.example.loginanimation;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.ContextThemeWrapper;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -33,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     ImageView logoImageView;
     TextView btnRegister;
     CardView toolCard;
+    Button btnAdmin;
     ScrollView homeScroll;
     androidx.appcompat.widget.Toolbar my_toolbar;
     Button btnLogin;
@@ -53,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         animationView = findViewById(R.id.animationView);
         my_toolbar = findViewById(R.id.my_toolbar);
         btnRegister = findViewById(R.id.btnRegister);
-        Animation animation = animationView.getAnimation();
 
         btnLogin = findViewById(R.id.LoginButton);
         Animation fade;
@@ -64,34 +61,22 @@ public class LoginActivity extends AppCompatActivity {
         my_toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        LayoutInflater inflater = getLayoutInflater();
-                        View dialogView = inflater.inflate(R.layout.dialogue_alert, null);
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                        builder.setView(dialogView);
 
-                        TextView messageTextView = dialogView.findViewById(R.id.txtAlert);
-                        messageTextView.setText("You do not have administration access to use this feature.");
-                        builder.setTitle("Administration Access Required !!");
+                Dialog smallLayoutDialog = new Dialog(LoginActivity.this);
 
-//                        ImageView customImageView = dialogView.findViewById(R.id.customImageView);
+                // Set the content view of the dialog to your small layout
+                smallLayoutDialog.setContentView(R.layout.dialogue_alert);
 
-//                        customImageView.setImageResource(R.drawable.custom_image);
-
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        // Handle the positive button click
-                                    }
-                                })
-                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        // Handle the negative button click
-                                    }
-                                });
-
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-
+                btnAdmin = smallLayoutDialog.findViewById(R.id.btnAdmin);
+                smallLayoutDialog.show();
+                btnAdmin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(LoginActivity.this, "Admin Pressed", Toast.LENGTH_SHORT).show();
+                        smallLayoutDialog.dismiss();
+                    }
+                });
                         return true;
                     }
                 });
@@ -119,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

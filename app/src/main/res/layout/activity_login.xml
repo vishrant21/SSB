@@ -78,18 +78,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <!-- Username Field -->
-            <EditText
-                android:id="@+id/usernameEditText"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/border"
-                android:gravity="center"
-                android:hint="Username"
-                android:padding="10dp"/>
+                android:orientation="horizontal"
+                app:passwordToggleContentDescription=""
+                app:hintTextColor="#40495c"
+                android:id="@+id/usernameEditTextL"
+                android:autofillHints="username"
+                android:padding="5dp"
+                android:gravity="center_vertical">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/usernameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:textColorHint="#40495c"
+                    android:hint="UserName"
+                    android:gravity="center"
+                    android:background="@drawable/border"
+                    android:padding="13dp"
+                    android:textColor="#40495c"/>
+
+                <!-- Show/Hide Password Toggle Button -->
+                <!-- You'll need to provide icons for show and hide -->
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Password Field -->
             <com.google.android.material.textfield.TextInputLayout
@@ -101,7 +118,7 @@
                 app:hintTextColor="#40495c"
                 android:autofillHints="password"
                 android:padding="5dp"
-                android:layout_below="@+id/usernameEditText"
+                android:layout_below="@+id/usernameEditTextL"
                 android:gravity="center_vertical">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -130,10 +147,8 @@
             android:id="@+id/forgotPasswordTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:padding="5dp"
             android:text="Forgot Password?"
-            android:textColor="#ef5c32"
+            android:textColor="#411BE4"
             android:layout_gravity="end" />
 
         <Button
