@@ -1,6 +1,8 @@
 package com.example.loginanimation;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -151,6 +152,8 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+
+
         DatabaseReference reference5 = instance.getReference("Packed Goods");
         reference5.addValueEventListener(new ValueEventListener() {
             String packed[],image[];
@@ -278,19 +281,19 @@ public class HomeActivity extends AppCompatActivity {
                 {
                     Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                     startActivity(intent);
-                    finish();
+//                    finish();
                 }
                 else if (item.getItemId() == account) {
                     Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                     startActivity(intent);
-                    finish();
+//                    finish();
 
                 }
                 else if (item.getItemId() == cart)
                 {
                     Intent intent = new Intent(getApplicationContext(),CartActivity.class);
                     startActivity(intent);
-                    finish();
+//                    finish();
                 }
 
                 return true;
@@ -298,6 +301,29 @@ public class HomeActivity extends AppCompatActivity {
         });
 
     }
+
+
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Finish the activity and exit the app
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Dismiss the dialog and continue
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        // This line is important to call the default behavior (finishing the current activity)
+    }
+
+
     @Override
     protected void onStart() {
         super.onStart();

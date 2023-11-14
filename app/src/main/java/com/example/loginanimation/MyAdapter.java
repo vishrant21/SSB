@@ -76,6 +76,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                     Toast.makeText(context, "Adapter :"+c_image.size(), Toast.LENGTH_LONG).show();
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
+                    cartActivity.finishActivity();
 
             }
         });
