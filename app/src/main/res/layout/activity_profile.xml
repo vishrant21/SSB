@@ -17,15 +17,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                app:cardCornerRadius="50dp"
+                android:foregroundGravity="center"
+                android:layout_height="150dp">
             <ImageView
                 android:id="@+id/imgProfile"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="24dp"
+                android:scaleType="centerCrop"
                 android:background="@drawable/circular_background"
                 android:src="@drawable/baseline_person_24" />
+            </androidx.cardview.widget.CardView>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
@@ -174,6 +182,26 @@
                 android:layout_marginStart="10dp"
                 android:visibility="gone"
                 android:hint="Email Address"/>
+
+            <EditText
+                android:id="@+id/editTxtAddress"
+                android:layout_below="@+id/editTxtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:visibility="gone"
+                android:hint="Address"/>
+
+            <EditText
+                android:id="@+id/editTxtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTxtAddress"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:visibility="gone"
+                android:hint="Phone Number"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"

@@ -296,6 +296,8 @@ public class HomeActivity extends AppCompatActivity {
 //                    finish();
                 }
 
+
+
                 return true;
             }
         });
