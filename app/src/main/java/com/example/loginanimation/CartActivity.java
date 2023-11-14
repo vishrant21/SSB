@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +35,7 @@ public class CartActivity extends AppCompatActivity implements MyAdapter.Activit
 
 
     Button btnPayment;
-    CartActivity cartActivity;
+    CartActivity cartActivity = this;
     ArrayList<String> c_names,c_image;
     ArrayList<Integer> c_price;
     ArrayList<Integer> c_qty;
@@ -77,33 +76,7 @@ public class CartActivity extends AppCompatActivity implements MyAdapter.Activit
             @Override
             public void onSwipeRight(int position) {
                 //Toast.makeText(CartActivity.this, ""+position, Toast.LENGTH_SHORT).show();
-                sharedPreferences = getSharedPreferences("MyCart", Context.MODE_PRIVATE);
-                Gson gson = new Gson();
-
-                c_image.remove(position);
-                c_names.remove(position);
-                c_price.remove(position);
-                c_qty.remove(position);
-
-                r_v_cart.getAdapter().notifyItemRemoved(position);
-                String updatedNamesJson = gson.toJson(c_names);
-                String updatedPriceJson = gson.toJson(c_price);
-                String updatedQtyJson = gson.toJson(c_qty);
-                String updatedImageJson = gson.toJson(c_image);
-
-// Save the updated ArrayLists back to SharedPreferences
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("c_names", updatedNamesJson);
-                editor.putString("c_price", updatedPriceJson);
-                editor.putString("c_qty", updatedQtyJson);
-                editor.putString("c_image",updatedImageJson);
-                editor.apply();
-
-                afterSwipe(position,getApplicationContext());
-                myAdapter = new MyAdapter(getApplicationContext(),c_names,c_price,c_qty,c_image);
-
-                r_v_cart.setAdapter(myAdapter);
-                r_v_cart.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                whenSwiped(position);
             }
         });
 
@@ -130,7 +103,7 @@ public class CartActivity extends AppCompatActivity implements MyAdapter.Activit
         else{
 
         }
-        myAdapter = new MyAdapter(this,c_names,c_price,c_qty,c_image);
+        myAdapter = new MyAdapter(cartActivity,this,c_names,c_price,c_qty,c_image);
 
         for (int i=0;i<c_price.size();i++)
             total += c_price.get(i);
@@ -184,9 +157,6 @@ public class CartActivity extends AppCompatActivity implements MyAdapter.Activit
         String priceJson = sharedPreferences.getString("c_price", null);
         Gson gson = new Gson();
 
-
-
-
         if (priceJson != null) {
             Type intListType = new TypeToken<ArrayList<Integer>>() {
             }.getType();
@@ -208,6 +178,40 @@ public class CartActivity extends AppCompatActivity implements MyAdapter.Activit
             grand = gt;
             txtTotal.setText(gt+" ₹");
         }
+    }
+
+    void updateQty(int qty)
+    {}
+
+    void whenSwiped(int position)
+    {
+        sharedPreferences = getSharedPreferences("MyCart", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+
+        c_image.remove(position);
+        c_names.remove(position);
+        c_price.remove(position);
+        c_qty.remove(position);
+
+        r_v_cart.getAdapter().notifyItemRemoved(position);
+        String updatedNamesJson = gson.toJson(c_names);
+        String updatedPriceJson = gson.toJson(c_price);
+        String updatedQtyJson = gson.toJson(c_qty);
+        String updatedImageJson = gson.toJson(c_image);
+
+// Save the updated ArrayLists back to SharedPreferences
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("c_names", updatedNamesJson);
+        editor.putString("c_price", updatedPriceJson);
+        editor.putString("c_qty", updatedQtyJson);
+        editor.putString("c_image",updatedImageJson);
+        editor.apply();
+
+        afterSwipe(position,getApplicationContext());
+        myAdapter = new MyAdapter(cartActivity,getApplicationContext(),c_names,c_price,c_qty,c_image);
+
+        r_v_cart.setAdapter(myAdapter);
+        r_v_cart.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
     public void finishActivity() {
         finish(); // Finish the current activity

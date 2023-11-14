@@ -12,20 +12,28 @@
         android:layout_height="wrap_content"
         android:layout_weight="2.8">
 
-        <RelativeLayout
-
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <!-- Circular Profile Image -->
             <ImageView
                 android:id="@+id/imgProfile"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
+                android:layout_gravity="center"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/circular_background"
                 android:src="@drawable/baseline_person_24" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/lytInfo"
+                android:layout_below="@id/imgProfile"
+                android:layout_height="wrap_content">
+            <!-- Circular Profile Image -->
+
 
             <!-- User Information -->
             <TextView
@@ -72,18 +80,18 @@
                 android:layout_below="@+id/lblEmail"
                 android:background="#DDDDDD" />
 
-            <TextView
-                android:id="@+id/txtEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/view2"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:text="finalproject483@gmail.com"
-                android:textSize="20dp" />
+                <!-- Additional User Information -->
+                <TextView
+                    android:id="@+id/txtEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view2"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="finalproject483@gmail.com"
+                    android:textSize="20dp" />
 
-            <!-- Additional User Information -->
-            <TextView
+                <TextView
                 android:id="@+id/lblAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -137,23 +145,72 @@
                 android:text="+1 250 879 3397"
                 android:textSize="20dp" />
 
+
+
             <!-- Edit Profile Button -->
 
-            <TextView
-                android:id="@+id/edit_profile_button"
-                android:layout_width="wrap_content"
+            <!-- Editable fields (initially set to invisible) -->
+
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/editTxtName"
+
+                android:layout_below="@+id/imgProfile"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtPhone"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:visibility="gone"
+                android:hint="Name"/>
+
+            <EditText
+                android:id="@+id/editTxtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTxtName"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:visibility="gone"
+                android:hint="Email Address"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/btnLogout"
+                android:layout_width="150dp"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lytInfo"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:background="@drawable/border"
+                android:elevation="30dp"
+                android:padding="10dp"
+                android:text="Logout"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/btnEditProfile"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_below="@+id/btnLogout"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_marginLeft="60dp"
                 android:background="@drawable/border"
                 android:elevation="30dp"
                 android:padding="10dp"
                 android:text="Edit Profile"
                 android:textSize="20sp" />
 
+            </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

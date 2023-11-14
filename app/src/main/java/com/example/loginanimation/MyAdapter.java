@@ -26,19 +26,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     ArrayList<String> c_image;
     ArrayList<Integer> c_price;
     ArrayList<Integer> c_qty;
+    CartActivity cartActivity;
     Context context;
 
-    private ActivityFinishListener activityFinishListener;
-    public MyAdapter(Context context, ArrayList<String> c_names, ArrayList<Integer> c_price, ArrayList<Integer> c_qty, ArrayList<String> c_image) {
+    public MyAdapter(CartActivity cartActivity,Context context, ArrayList<String> c_names, ArrayList<Integer> c_price, ArrayList<Integer> c_qty, ArrayList<String> c_image) {
 
+        this.cartActivity = cartActivity;
         this.context = context;
         this.c_names = c_names;
         this.c_price = c_price;
         this.c_qty = c_qty;
         this.c_image = c_image;
-        if (context instanceof ActivityFinishListener) {
-            activityFinishListener = (ActivityFinishListener) context;
-        }
+
     }
 
 
@@ -57,6 +56,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.txtCqty.setText(" X "+c_qty.get(position));
         Picasso.get().load(c_image.get(position)).into(holder.imgCitem);
 
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    cartActivity.whenSwiped(position);
+            }
+        });
+
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,9 +76,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                     Toast.makeText(context, "Adapter :"+c_image.size(), Toast.LENGTH_LONG).show();
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
-//                    if (activityFinishListener != null) {
-//                        activityFinishListener.finishActivity();
-//                    }
 
             }
         });
@@ -88,7 +91,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView txtCname,txtCprice,txtCqty;
-        public ImageView imgCitem,btnEdit;
+        public ImageView imgCitem,btnEdit,btnDelete;
 
 
         public ViewHolder(View view) {
@@ -97,6 +100,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             txtCprice = view.findViewById(R.id.txtCprice);
             btnEdit = view.findViewById(R.id.btnEdit);
             imgCitem = view.findViewById(R.id.imgCitem);
+            btnDelete = view.findViewById(R.id.btnDelete);
             txtCqty = view.findViewById(R.id.txtCqty);
         }
     }

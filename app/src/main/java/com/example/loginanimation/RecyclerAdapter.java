@@ -73,9 +73,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             lstPrice = itemView.findViewById(R.id.lstPrice);
             lstImage = itemView.findViewById(R.id.lstImage);
 
-
-
-
         }
     }
 
