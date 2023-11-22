@@ -125,6 +125,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putBoolean("isUserLoggedIn", false);
+                                editor.putBoolean("isAdminLoggedIn",false);
                                 editor.apply();
                                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                 startActivity(intent);
@@ -147,7 +148,17 @@ public class ProfileActivity extends AppCompatActivity {
         });
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
 
-        index = sharedPreferences.getInt("Index",-1);
+
+
+        if (sharedPreferences.getBoolean("isAdminLoggedIn",false))
+        {
+//            Toast.makeText(this, "Admin Login "+sharedPreferences.getBoolean("isAdminLoggedIn",false), Toast.LENGTH_SHORT).show();
+            index = 0;
+        }
+        else
+        {
+            index = sharedPreferences.getInt("Index",0);
+        }
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference usersRef = database.getReference("Users");

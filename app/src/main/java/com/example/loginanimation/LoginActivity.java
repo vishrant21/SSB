@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText usernameEditText,passwordEditText;
     CardView toolCard;
     Button btnAdmin;
+    TextInputEditText admin_Uname,admin_pass;
     ScrollView homeScroll;
     androidx.appcompat.widget.Toolbar my_toolbar;
     Button btnLogin;
@@ -72,12 +73,21 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         boolean isUserLoggedIn = sharedPreferences.getBoolean("isUserLoggedIn", false);
+        boolean isAdminLoggedIn = sharedPreferences.getBoolean("isAdminLoggedIn", false);
 
-        if (isUserLoggedIn) {
+        if (isUserLoggedIn || isAdminLoggedIn) {
             // User is remembered as logged in, navigate to the main activity
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-            finish(); // Optionally, close the LoginActivity
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    animationView.setVisibility(View.GONE);
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                    finish(); // Optionally, close the LoginActivity
+                }
+            }, animationView.getDuration()-200);
+
         }
         fade = AnimationUtils.loadAnimation(this, R.anim.fade_out);
 
@@ -94,11 +104,28 @@ public class LoginActivity extends AppCompatActivity {
                 smallLayoutDialog.setContentView(R.layout.dialogue_alert);
 
                 btnAdmin = smallLayoutDialog.findViewById(R.id.btnAdmin);
+                admin_pass = smallLayoutDialog.findViewById(R.id.admin_pass);
+                admin_Uname =smallLayoutDialog.findViewById(R.id.admin_Uname);
                 smallLayoutDialog.show();
                 btnAdmin.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(LoginActivity.this, "Admin Pressed", Toast.LENGTH_SHORT).show();
+                        if (admin_Uname.getText().toString().trim().equals("Sukh Shanti"))
+                        {
+                            if (admin_pass.getText().toString().trim().equals("Kalol213"))
+                            {
+                                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                Toast.makeText(LoginActivity.this, "Admin Login", Toast.LENGTH_SHORT).show();
+                                smallLayoutDialog.dismiss();
+                                editor.putBoolean("isAdminLoggedIn", true);
+                                editor.apply();
+                                Intent intent1 = new Intent(LoginActivity.this,HomeActivity.class);
+                                startActivity(intent1);
+                                finish();
+                            }
+                        }
                         smallLayoutDialog.dismiss();
                     }
                 });
@@ -139,7 +166,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
         usersRef.addValueEventListener(new ValueEventListener() {
-
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

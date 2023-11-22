@@ -1,17 +1,18 @@
 package com.example.loginanimation;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -28,10 +29,16 @@ public class MenuItemActivity extends AppCompatActivity {
 
     RecyclerView r_v_menu_item;
     String menuItem;
-    TextView txtMenuItem;
+    TextView txtMenuItem,txtInfo;
+    boolean isAdminLoggedIn;
+    ArrayList<String> currentName = new ArrayList<>();
+    ArrayList<String> currentPrice = new ArrayList<>();
+    ArrayList<String> currentImage = new ArrayList<>();
     FirebaseDatabase instance = FirebaseDatabase.getInstance();
 
-    RecyclerAdapter recyclerAdapter;
+    MenuItemActivity menuItemActivity = this;
+    MenuItemAdapter menuItemAdapter;
+    SharedPreferences sharedPreferences;
 
 
     @SuppressLint("MissingInflatedId")
@@ -42,9 +49,19 @@ public class MenuItemActivity extends AppCompatActivity {
         r_v_menu_item = findViewById(R.id.r_v_menu_item);
         txtMenuItem = findViewById(R.id.txtMenuItem);
         Intent intent = getIntent();
+        txtInfo = findViewById(R.id.txtInfo);
         menuItem = intent.getStringExtra("MenuItem");
         DatabaseReference reference = instance.getReference().child(""+menuItem);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        isAdminLoggedIn = sharedPreferences.getBoolean("isAdminLoggedIn", false);
+
+
+        if (isAdminLoggedIn)
+        {
+            txtInfo.setVisibility(View.VISIBLE);
+        }
+        else {}
 
         txtMenuItem.setText(""+menuItem);
         reference.addValueEventListener(new ValueEventListener() {
@@ -75,8 +92,8 @@ public class MenuItemActivity extends AppCompatActivity {
                         price[i]= Integer.parseInt(String.valueOf(price_a.get(i)));
                         image[i]= image_a.get(i);
                     }
-                    recyclerAdapter = new RecyclerAdapter(getApplicationContext(),breakfast,price,image);
-                    r_v_menu_item.setAdapter(recyclerAdapter);
+                    menuItemAdapter = new MenuItemAdapter(getApplicationContext(),breakfast,price,image,menuItemActivity,isAdminLoggedIn);
+                    r_v_menu_item.setAdapter(menuItemAdapter);
                     r_v_menu_item.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
 
             }
@@ -122,5 +139,38 @@ public class MenuItemActivity extends AppCompatActivity {
             }
         });
 
+    }
+    void afterLongClick(int position) {
+        DatabaseReference reference = instance.getReference().child("" + menuItem);
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Get all data as maps
+                    ArrayList<String> nameData = (ArrayList<String>) dataSnapshot.child("Name").getValue();
+                    ArrayList<Integer> priceData = (ArrayList<Integer>) dataSnapshot.child("Price").getValue();
+                    ArrayList<String> imageData = (ArrayList<String>) dataSnapshot.child("Image").getValue();
+
+                    // Check if the position is valid
+                    if (position >= 0 && position < nameData.size() && position < priceData.size() && position < imageData.size()) {
+                        // Remove the item at the specified position
+                        nameData.remove(position);
+                        priceData.remove(position);
+                        imageData.remove(position);
+
+                        // Re-enter the updated data
+                        reference.child("Name").setValue(nameData);
+                        reference.child("Price").setValue(priceData);
+                        reference.child("Image").setValue(imageData);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle the error
+            }
+        });
     }
 }

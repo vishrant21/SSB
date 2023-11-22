@@ -48,7 +48,7 @@
                 android:gravity="center_vertical">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/usernameEditText"
+                android:id="@+id/admin_Uname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -76,7 +76,7 @@
                 android:gravity="center_vertical">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/passwordEditText"
+                    android:id="@+id/admin_pass"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
