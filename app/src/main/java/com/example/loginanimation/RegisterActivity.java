@@ -46,7 +46,6 @@ public class RegisterActivity extends AppCompatActivity {
     LottieAnimationView viewAnime;
     ArrayList<String> userName = new ArrayList<>();
     ImageView profileimage;
-    UserInfo userInfo = new UserInfo();
     private EditText nameEditText, usernameEditText, passwordEditText;
     private TextView registerButton;
 
@@ -57,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         nameEditText = findViewById(R.id.nameEditText);
+
 
         FirebaseDatabase instance = FirebaseDatabase.getInstance();
         profileimage = findViewById(R.id.profileImageReg);
