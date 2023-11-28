@@ -31,8 +31,8 @@
 
             <ImageView
                 android:id="@+id/toolbarImage"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="left"
                 android:src="@drawable/my_logo" />
 
@@ -42,7 +42,7 @@
                 android:layout_marginLeft="20dp"
                 android:text="Sukh Shanti Bhuvan"
                 android:textColor="#000000"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>
     </androidx.cardview.widget.CardView>
@@ -161,7 +161,7 @@
                 app:lottie_loop="false"/>
         </LinearLayout>
 
-        <TextView
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Register"
@@ -171,7 +171,8 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textStyle="bold"
-            android:background="@drawable/border"
+            android:textColor="@color/black"
+            android:backgroundTint="#FF5722"
             android:id="@+id/registerButton"/>
     </LinearLayout>
 </ScrollView>

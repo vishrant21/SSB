@@ -30,8 +30,8 @@
 
                 <ImageView
                     android:id="@+id/imgCitem"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/preview" />
             </androidx.cardview.widget.CardView>
@@ -48,7 +48,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_toRightOf="@+id/cartCard"
                 android:text="Item Name"
-                android:textSize="20dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,6 +57,7 @@
                 android:textStyle="bold"
                 android:layout_toRightOf="@+id/txtCname"
                 android:gravity="center"
+                android:textSize="15dp"
                 android:layout_centerVertical="true"
                 android:text="X 4"/>
 
@@ -94,7 +95,7 @@
                 android:layout_below="@+id/lytCart"
                 android:layout_alignEnd="@id/txtCprice"
                 android:id="@+id/lblCprice"
-                android:textSize="16dp"
+                android:textSize="15dp"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"

@@ -206,7 +206,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
                 android:layout_height="wrap_content">
-            <TextView
+            <Button
                 android:id="@+id/btnLogout"
                 android:layout_width="150dp"
                 android:layout_marginStart="10dp"
@@ -215,7 +215,7 @@
                 android:layout_below="@+id/lytInfo"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:background="@drawable/border"
+               android:backgroundTint="#ef5c32"
                 android:elevation="30dp"
                 android:padding="10dp"
                 android:text="Logout"
