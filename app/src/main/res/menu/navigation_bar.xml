@@ -17,4 +17,8 @@
         android:id="@+id/account"
         android:title="Account"
         android:icon="@drawable/ic_person"/>
+    <item
+        android:id="@+id/history"
+        android:title="History"
+        android:icon="@drawable/order"/>
 </menu>

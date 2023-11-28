@@ -272,7 +272,7 @@ public class HomeActivity extends AppCompatActivity {
 
         BottomNavigationView my_navigator;
         my_navigator = findViewById(R.id.my_navigator);
-        int account = R.id.account,home = R.id.home,menu = R.id.menu,cart = R.id.cart;
+        int account = R.id.account,home = R.id.home,menu = R.id.menu,cart = R.id.cart,history = R.id.history;
         my_navigator.setSelectedItemId(R.id.home);
         my_navigator.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -294,8 +294,12 @@ public class HomeActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(),CartActivity.class);
                     startActivity(intent);
                     finish();
-                }
+                } else if (item.getItemId() == history) {
+                    Intent intent = new Intent(getApplicationContext(),HistoryActivity.class);
+                    startActivity(intent);
+                    finish();
 
+                }
 
 
                 return true;

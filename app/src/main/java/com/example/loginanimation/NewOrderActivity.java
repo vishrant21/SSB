@@ -1,5 +1,8 @@
 package com.example.loginanimation;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -62,6 +65,7 @@ public class NewOrderActivity extends AppCompatActivity {
                                 // Retrieve the email
                                 storedEmail = (ArrayList<String>) userSnapshot.child("Email").getValue();
                                 // Do something with the email
+                                showNewOrderNotification(orderNum.size() - 1);
                                 NewOrderAdapter adapter = new NewOrderAdapter(getApplicationContext(),orderNum,firstDigit,storedEmail);
                                 recyclerView.setAdapter(adapter);
                                 Toast.makeText(NewOrderActivity.this, ""+storedEmail, Toast.LENGTH_SHORT).show();
@@ -89,5 +93,7 @@ public class NewOrderActivity extends AppCompatActivity {
         });
 
 
+    }
+    private void showNewOrderNotification(int i) {
     }
 }
