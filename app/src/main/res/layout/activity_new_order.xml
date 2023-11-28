@@ -7,6 +7,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NewOrderActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -15,9 +19,12 @@
         android:gravity="center"
         android:text="New Orders"
         android:layout_margin="20dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         tools:layout_editor_absoluteX="1dp"
+        android:id="@+id/r_v_new_order"
         tools:layout_editor_absoluteY="1dp" />
+    </LinearLayout>
 </LinearLayout>

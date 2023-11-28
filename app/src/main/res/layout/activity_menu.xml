@@ -6,12 +6,21 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RV_Menu"
         android:layout_width="match_parent"
         android:layout_weight="3"
         android:layout_height="match_parent"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/btnNewOrder"
+        android:visibility="gone"
+        android:backgroundTint="#ef5c32"
+        android:layout_margin="20dp"
+        android:text="View New Orders"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_below="@+id/RV_Menu"

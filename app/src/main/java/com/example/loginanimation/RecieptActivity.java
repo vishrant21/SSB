@@ -26,7 +26,7 @@ public class RecieptActivity extends AppCompatActivity {
     Intent intent;
     ListView listView;
     String list[];
-    String emailOrder;
+    int emailOrder;
     TextView txtOrderNum;
     DatabaseReference myRef;
     int index =0;
@@ -88,9 +88,9 @@ public class RecieptActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
 
-        emailOrder = sharedPreferences.getString("CurrentUser","Nobody");
+        emailOrder = sharedPreferences.getInt("Index",0);
 
-        myRef = database.getReference().child("Orders").child(""+orderId);
+        myRef = database.getReference().child("Orders").child(emailOrder+""+orderId);
         myRef.setValue(Arrays.asList(list));
 
 

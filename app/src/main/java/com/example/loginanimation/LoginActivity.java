@@ -184,13 +184,13 @@ public class LoginActivity extends AppCompatActivity {
                 storedEmail = (ArrayList<String>) snapshot.child("Email").getValue();
                 storedPass = (ArrayList<String>) snapshot.child("Password").getValue();
 
-                Toast.makeText(LoginActivity.this, ""+storedEmail.get(storedEmail.size()-2), Toast.LENGTH_SHORT).show();
+
 
 
                 if (storedEmail.contains(enteredUsername))
                 {
-                    int x =storedEmail.indexOf(enteredUsername);
-                    if(enteredPassword.equals(storedPass.get(x)))
+                    int x = storedEmail.indexOf(enteredUsername);
+                    if (enteredPassword.equals(storedPass.get(x)))
                     {
                         animationView.setVisibility(View.VISIBLE);
                         animationView.playAnimation();
