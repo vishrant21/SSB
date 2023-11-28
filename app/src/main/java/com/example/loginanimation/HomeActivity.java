@@ -281,19 +281,19 @@ public class HomeActivity extends AppCompatActivity {
                 {
                     Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                     startActivity(intent);
-//                    finish();
+                    finish();
                 }
                 else if (item.getItemId() == account) {
                     Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                     startActivity(intent);
-//                    finish();
+                    finish();
 
                 }
                 else if (item.getItemId() == cart)
                 {
                     Intent intent = new Intent(getApplicationContext(),CartActivity.class);
                     startActivity(intent);
-//                    finish();
+                    finish();
                 }
 
 

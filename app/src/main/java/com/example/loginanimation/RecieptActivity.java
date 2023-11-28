@@ -9,20 +9,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Random;
 
 public class RecieptActivity extends AppCompatActivity {
 
@@ -30,12 +27,15 @@ public class RecieptActivity extends AppCompatActivity {
     ListView listView;
     String list[];
     String emailOrder;
-    int x  = 0,index =0;
+    TextView txtOrderNum;
+    DatabaseReference myRef;
+    int index =0;
     ArrayList<String> storedEmail = new ArrayList<>();
     Calendar calendar = Calendar.getInstance();
     double total;
     TextView txtTotal,txtDate;
 
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,8 @@ public class RecieptActivity extends AppCompatActivity {
         listView = findViewById(R.id.lstReciept);
         txtDate = findViewById(R.id.txtDate);
         txtTotal = findViewById(R.id.txtRTotal);
+        txtOrderNum = findViewById(R.id.txtOrderNumber);
+
         intent = getIntent();
 
 
@@ -53,6 +55,19 @@ public class RecieptActivity extends AppCompatActivity {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM/dd/yyyy", Locale.getDefault());
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm a", Locale.getDefault());
+
+        Random random = new Random();
+
+        // Generate 9 random digits
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 9; i++) {
+            int randomDigit = random.nextInt(10); // Generates a random digit (0 to 9)
+            sb.append(randomDigit);
+        }
+
+        int orderId =Integer.parseInt(sb.toString());
+
+        txtOrderNum.setText("#"+orderId);
 
 
         String formattedDate = dateFormat.format(calendar.getTime());
@@ -71,38 +86,13 @@ public class RecieptActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
         txtTotal.setText("Total Amount Paid: "+total+" ₹");
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child("Email");
-
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
 
-        if (sharedPreferences.getBoolean("isAdminLoggedIn",false))
-        {
-//            Toast.makeText(this, "Admin Login "+sharedPreferences.getBoolean("isAdminLoggedIn",false), Toast.LENGTH_SHORT).show();
-            index = 0;
-        }
-        else
-        {
-            index = sharedPreferences.getInt("Index",0);
-        }
+        emailOrder = sharedPreferences.getString("CurrentUser","Nobody");
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                storedEmail = (ArrayList<String>) snapshot.getValue();
-
-                emailOrder = storedEmail.get(index);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        x++;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("Orders").child(""+emailOrder).child(""+x);
+        myRef = database.getReference().child("Orders").child(""+orderId);
         myRef.setValue(Arrays.asList(list));
+
 
     }
 }

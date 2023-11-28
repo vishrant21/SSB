@@ -4,6 +4,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
 
     <application
@@ -17,6 +22,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginAnimation"
         tools:targetApi="31">
+        <activity
+            android:name=".NewOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddNewItemActivity"
+            android:exported="false" />
         <activity
             android:name=".PaymentActivity"
             android:exported="false" />
@@ -47,8 +58,6 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
-
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -58,7 +67,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

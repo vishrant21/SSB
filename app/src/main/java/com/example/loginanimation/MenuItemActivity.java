@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,8 @@ public class MenuItemActivity extends AppCompatActivity {
 
     RecyclerView r_v_menu_item;
     String menuItem;
+
+    Button btnNewItem;
     TextView txtMenuItem,txtInfo;
     boolean isAdminLoggedIn;
     ArrayList<String> currentName = new ArrayList<>();
@@ -48,6 +51,8 @@ public class MenuItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu_item);
         r_v_menu_item = findViewById(R.id.r_v_menu_item);
         txtMenuItem = findViewById(R.id.txtMenuItem);
+        btnNewItem = findViewById(R.id.btnNewItem);
+
         Intent intent = getIntent();
         txtInfo = findViewById(R.id.txtInfo);
         menuItem = intent.getStringExtra("MenuItem");
@@ -60,9 +65,20 @@ public class MenuItemActivity extends AppCompatActivity {
         if (isAdminLoggedIn)
         {
             txtInfo.setVisibility(View.VISIBLE);
+            btnNewItem.setVisibility(View.VISIBLE);
         }
         else {}
 
+
+        btnNewItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), AddNewItemActivity.class);
+                    intent.putExtra("Category",menuItem);
+                    startActivity(intent);
+                    finish();
+            }
+        });
         txtMenuItem.setText(""+menuItem);
         reference.addValueEventListener(new ValueEventListener() {
             String image[],breakfast[];
@@ -172,5 +188,11 @@ public class MenuItemActivity extends AppCompatActivity {
                 // Handle the error
             }
         });
+    }
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+        startActivity(intent);
+        finish();
+        // This line is important to call the default behavior (finishing the current activity)
     }
 }

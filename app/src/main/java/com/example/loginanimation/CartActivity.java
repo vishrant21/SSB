@@ -65,9 +65,14 @@ public class CartActivity extends AppCompatActivity implements MyAdapter.Activit
                     items[i] = ""+(i+1)+".   " + c_names.get(i)+"  X    "+c_qty.get(i);
                 }
                 intent.putExtra("Items",items);
-                Toast.makeText(getApplicationContext(), ""+grand, Toast.LENGTH_SHORT).show();
-                intent.putExtra("itemPrice",grand);
-                startActivity(intent);
+                if (items.length > 0) {
+                    Toast.makeText(getApplicationContext(), "" + grand, Toast.LENGTH_SHORT).show();
+                    intent.putExtra("itemPrice", grand);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(cartActivity, "The cart is empty", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -101,7 +106,7 @@ public class CartActivity extends AppCompatActivity implements MyAdapter.Activit
             c_qty = gson.fromJson(qtyJson, intListType);
         }
         else{
-
+            btnPayment.setClickable(false);
         }
         myAdapter = new MyAdapter(cartActivity,this,c_names,c_price,c_qty,c_image);
 
@@ -162,7 +167,7 @@ public class CartActivity extends AppCompatActivity implements MyAdapter.Activit
             }.getType();
             c_price = gson.fromJson(priceJson, intListType);
 
-            Toast.makeText(context, "After Swipe: "+c_image.size(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "After Swipe: "+c_image.size(), Toast.LENGTH_SHORT).show();
             double t = 0,tx,gt;
             for (int i=0;i<c_price.size();i++)
                 t += c_price.get(i);
@@ -177,6 +182,10 @@ public class CartActivity extends AppCompatActivity implements MyAdapter.Activit
             gt = Double.valueOf(formattedTax ) + t;
             grand = gt;
             txtTotal.setText(gt+" ₹");
+        }
+        else
+        {
+            btnPayment.setClickable(false);
         }
     }
 

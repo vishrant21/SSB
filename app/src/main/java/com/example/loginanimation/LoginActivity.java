@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         boolean isUserLoggedIn = sharedPreferences.getBoolean("isUserLoggedIn", false);
         boolean isAdminLoggedIn = sharedPreferences.getBoolean("isAdminLoggedIn", false);
 
-        if (isUserLoggedIn || isAdminLoggedIn) {
+        if (isUserLoggedIn) {
             // User is remembered as logged in, navigate to the main activity
 
             new Handler().postDelayed(new Runnable() {
@@ -87,6 +87,18 @@ public class LoginActivity extends AppCompatActivity {
                     finish(); // Optionally, close the LoginActivity
                 }
             }, animationView.getDuration()-200);
+
+        } else if (isAdminLoggedIn) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    animationView.setVisibility(View.GONE);
+                    Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                    startActivity(intent);
+                    finish(); // Optionally, close the LoginActivity
+                }
+            }, animationView.getDuration()-200);
+
 
         }
         fade = AnimationUtils.loadAnimation(this, R.anim.fade_out);
@@ -121,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                                 smallLayoutDialog.dismiss();
                                 editor.putBoolean("isAdminLoggedIn", true);
                                 editor.apply();
-                                Intent intent1 = new Intent(LoginActivity.this,HomeActivity.class);
+                                Intent intent1 = new Intent(LoginActivity.this, MenuActivity.class);
                                 startActivity(intent1);
                                 finish();
                             }
@@ -191,6 +203,7 @@ public class LoginActivity extends AppCompatActivity {
                                 SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putBoolean("isUserLoggedIn", true);
+                                editor.putString("CurrentUser",enteredUsername);
                                 editor.putInt("Index",x);
                                 editor.apply();
                                 startActivity(intent);
