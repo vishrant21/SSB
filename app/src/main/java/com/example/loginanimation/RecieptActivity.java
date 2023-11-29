@@ -91,6 +91,7 @@ public class RecieptActivity extends AppCompatActivity {
         emailOrder = sharedPreferences.getInt("Index",0);
 
         myRef = database.getReference().child("Orders").child(emailOrder+""+orderId);
+        myRef.child("Orders").child(""+orderId).child("Total").setValue(total);
         myRef.setValue(Arrays.asList(list));
 
 

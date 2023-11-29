@@ -165,6 +165,7 @@ public class AddNewItemActivity extends AppCompatActivity {
 
         // ... (rest of your code)
     }
+
     private void showNotification(String title, String message) {
         createNotificationChannel();
 

@@ -2,9 +2,11 @@
 package com.example.loginanimation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,11 +45,17 @@ public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.OrderV
             holder.txtOrderNum.setText("Order: #" + orderNum.get(position));
             holder.txtFrom.setText("Order from: " + email);
 
-        } else {
-            // Handle the case where the index is out of bounds
-            holder.txtOrderNum.setText("Invalid Order");
-            holder.txtFrom.setText("Invalid Order");
         }
+        holder.lyt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,AcceptActivity.class);
+                intent.putExtra("OrderNum",orderNum.get(position));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -58,11 +66,13 @@ public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.OrderV
     public static class OrderViewHolder extends RecyclerView.ViewHolder {
         TextView txtOrderNum;
         TextView txtFrom;
+        LinearLayout lyt;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             txtOrderNum = itemView.findViewById(R.id.txtOrderNum);
             txtFrom = itemView.findViewById(R.id.txtFrom);
+            lyt = itemView.findViewById(R.id.lyt);
         }
     }
 }
