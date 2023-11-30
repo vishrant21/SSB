@@ -60,14 +60,14 @@ public class MenuActivity extends AppCompatActivity {
 
         BottomNavigationView my_navigator;
         my_navigator = findViewById(R.id.my_navigator);
-        int account = R.id.account,home = R.id.home,menu = R.id.menu,cart = R.id.cart;
+        int account = R.id.account,home = R.id.home,menu = R.id.menu,cart = R.id.cart,history = R.id.history;
         my_navigator.setSelectedItemId(R.id.menu);
         my_navigator.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == home)
+                if (item.getItemId() == history)
                 {
-                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -82,7 +82,13 @@ public class MenuActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(),CartActivity.class);
                     startActivity(intent);
                     finish();
+                } else if (item.getItemId() == home) {
+                    Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+
                 }
+
 
                 return true;
             }

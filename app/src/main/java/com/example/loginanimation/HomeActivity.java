@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -96,7 +95,6 @@ public class HomeActivity extends AppCompatActivity {
                 breakfast = new String[bf.size()];
                 price = new int[price_a.size()];
                 image = new String[image_a.size() ];
-                Toast.makeText(HomeActivity.this, ""+bf, Toast.LENGTH_SHORT).show();
 
                 for (int i=0;i<bf.size();i++)
                 {
@@ -132,7 +130,6 @@ public class HomeActivity extends AppCompatActivity {
                 dairy = new String[bf.size()];
                 price = new int[price_a.size()];
                 image = new String[image_a.size() ];
-                Toast.makeText(HomeActivity.this, ""+price_a, Toast.LENGTH_SHORT).show();
 
                 for (int i=0;i<bf.size();i++)
                 {
@@ -142,7 +139,6 @@ public class HomeActivity extends AppCompatActivity {
                     image[i]= image_a.get(i);
                 }
 
-                Toast.makeText(HomeActivity.this, ""+price_a, Toast.LENGTH_SHORT).show();
                 recyclerAdapter = new RecyclerAdapter(getApplicationContext(),dairy,price,image);
                 r_v_Dairy.setAdapter(recyclerAdapter);
                 r_v_Dairy.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
@@ -171,7 +167,6 @@ public class HomeActivity extends AppCompatActivity {
                 packed = new String[bf.size()];
                 price = new int[price_a.size()];
                 image = new String[image_a.size() ];
-                Toast.makeText(HomeActivity.this, ""+price_a, Toast.LENGTH_SHORT).show();
 
                 for (int i=0;i<bf.size();i++)
                 {
@@ -181,7 +176,6 @@ public class HomeActivity extends AppCompatActivity {
                     image[i]= image_a.get(i);
                 }
 
-                Toast.makeText(HomeActivity.this, ""+packed, Toast.LENGTH_SHORT).show();
                 recyclerAdapter = new RecyclerAdapter(getApplicationContext(),packed,price,image);
                 r_v_Packed.setAdapter(recyclerAdapter);
                 r_v_Packed.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
@@ -209,7 +203,6 @@ public class HomeActivity extends AppCompatActivity {
                 drink = new String[bf.size()];
                 price = new int[price_a.size()];
                 image = new String[image_a.size() ];
-                Toast.makeText(HomeActivity.this, ""+price_a, Toast.LENGTH_SHORT).show();
 
                 for (int i=0;i<bf.size();i++)
                 {
@@ -219,7 +212,6 @@ public class HomeActivity extends AppCompatActivity {
                     image[i]= image_a.get(i);
                 }
 
-                Toast.makeText(HomeActivity.this, ""+drink, Toast.LENGTH_SHORT).show();
                 recyclerAdapter = new RecyclerAdapter(getApplicationContext(),drink,price,image);
                 r_v_Drinks.setAdapter(recyclerAdapter);
                 r_v_Drinks.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
@@ -248,7 +240,6 @@ public class HomeActivity extends AppCompatActivity {
                 ice = new String[bf.size()];
                 price = new int[price_a.size()];
                 image = new String[image_a.size() ];
-                Toast.makeText(HomeActivity.this, ""+price_a, Toast.LENGTH_SHORT).show();
 
                 for (int i=0;i<bf.size();i++)
                 {
@@ -258,7 +249,6 @@ public class HomeActivity extends AppCompatActivity {
                     image[i]= image_a.get(i);
                 }
 
-                Toast.makeText(HomeActivity.this, ""+ice, Toast.LENGTH_SHORT).show();
                 recyclerAdapter = new RecyclerAdapter(getApplicationContext(),ice,price,image);
                 r_v_IceCream.setAdapter(recyclerAdapter);
                 r_v_IceCream.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));

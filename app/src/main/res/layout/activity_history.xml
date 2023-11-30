@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:weightSum="3"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".HistoryActivity">
     <androidx.cardview.widget.CardView
         android:id="@+id/tool_Card"
@@ -37,5 +39,21 @@
                 android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>
     </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:id="@+id/r_v_history"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/my_navigator"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_weight="0"
+        app:itemActiveIndicatorStyle="@style/Widget.Material3.NavigationRailView"
+        android:focusedByDefault="true"
+        app:itemBackground="@color/white"
+        app:menu="@menu/navigation_bar" />
 
 </LinearLayout>
