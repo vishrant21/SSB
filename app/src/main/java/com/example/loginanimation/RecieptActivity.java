@@ -100,8 +100,13 @@ public class RecieptActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences2.edit();
         editor.clear();
         editor.apply();
+    }
 
-
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent1 = new Intent(getApplicationContext(),HomeActivity.class);
+        startActivity(intent1);
+        finish();
     }
 }
