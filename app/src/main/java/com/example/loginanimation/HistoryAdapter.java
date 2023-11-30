@@ -27,6 +27,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.OrderVie
     private Context context;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders");
     ArrayList<String> orderNum = new ArrayList<>();
+    ArrayList<String> uniqueOrderNums = new ArrayList<>();
     private Handler uiHandler = new Handler();
     ArrayList<String> orderedItems = new ArrayList<>();
 
@@ -49,11 +50,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.OrderVie
         holder.lstOrder.setScrollBarSize(10);
         holder.txtOrderNum.setText("Order: #" + orderNum.get(position));
 
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 orderedItems = (ArrayList<String>) snapshot.child("" + orderNum.get(position)).getValue();
                 // Display the ordered items in the ListView
+
+
                 String[] array = new String[orderedItems.size()];
                 orderedItems.toArray(array);
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, array);

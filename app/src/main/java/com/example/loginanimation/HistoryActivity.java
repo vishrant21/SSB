@@ -93,7 +93,13 @@ public class HistoryActivity extends AppCompatActivity {
                             for (int i = 0; i < orderNum.size(); i++) {
                                 if (Integer.parseInt(orderNum.get(i).charAt(0) + "") == index) {
                                     // Display the ordered items in the ListVie
-                                    uniqueOrderNums.add(orderNum.get(i));
+                                        if (uniqueOrderNums.contains(orderNum.get(i)))
+                                        {
+                                            orderNum.remove(i);
+                                        } else {
+                                            // Display the ordered items in the ListVie
+                                            uniqueOrderNums.add( orderNum.get(i));
+                                        }
 
                                 }
                             }
