@@ -37,7 +37,7 @@ public class CartActivity extends AppCompatActivity implements MyAdapter.Activit
     Button btnPayment;
     CartActivity cartActivity = this;
     ArrayList<String> c_names,c_image;
-    ArrayList<Integer> c_price;
+    ArrayList<Integer> c_price = new ArrayList<>();
     ArrayList<Integer> c_qty;
 
     Double grand= 0.0;
@@ -69,6 +69,7 @@ public class CartActivity extends AppCompatActivity implements MyAdapter.Activit
                     Toast.makeText(getApplicationContext(), "" + grand, Toast.LENGTH_SHORT).show();
                     intent.putExtra("itemPrice", grand);
                     startActivity(intent);
+                    finish();
                 }
                 else {
                     Toast.makeText(cartActivity, "The cart is empty", Toast.LENGTH_SHORT).show();
@@ -106,23 +107,30 @@ public class CartActivity extends AppCompatActivity implements MyAdapter.Activit
             c_qty = gson.fromJson(qtyJson, intListType);
         }
         else{
+            c_price.add(0);
             btnPayment.setClickable(false);
         }
         myAdapter = new MyAdapter(cartActivity,this,c_names,c_price,c_qty,c_image);
 
-        for (int i=0;i<c_price.size();i++)
-            total += c_price.get(i);
-        txtSub.setText(total+" ₹");
-        tax = total * 11.0 / 100;
-        DecimalFormat decimalFormat = new DecimalFormat("0.00");
-        String formattedTax = decimalFormat.format(tax);
-        txtTax.setText(formattedTax + " ₹");
+        if (c_price.get(0).equals(0))
+        {
+            Toast.makeText(this, "Nothing in the cart", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            for (int i = 0; i < c_price.size(); i++)
+                total += c_price.get(i);
+            txtSub.setText(total + " ₹");
+            tax = total * 11.0 / 100;
+            DecimalFormat decimalFormat = new DecimalFormat("0.00");
+            String formattedTax = decimalFormat.format(tax);
+            txtTax.setText(formattedTax + " ₹");
 
-        grand = Double.valueOf(formattedTax ) + total;
-        txtTotal.setText(grand+" ₹");
-        myAdapter.notifyDataSetChanged();
-        r_v_cart.setAdapter(myAdapter);
-        r_v_cart.setLayoutManager(new LinearLayoutManager(this));
+            grand = Double.valueOf(formattedTax) + total;
+            txtTotal.setText(grand + " ₹");
+            myAdapter.notifyDataSetChanged();
+            r_v_cart.setAdapter(myAdapter);
+            r_v_cart.setLayoutManager(new LinearLayoutManager(this));
+        }
 
         BottomNavigationView my_navigator;
         my_navigator = findViewById(R.id.my_navigator);

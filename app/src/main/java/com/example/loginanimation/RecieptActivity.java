@@ -1,6 +1,7 @@
 package com.example.loginanimation;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class RecieptActivity extends AppCompatActivity {
     int emailOrder;
     TextView txtOrderNum;
     DatabaseReference myRef;
+    SharedPreferences sharedPreferences2;
     int index =0;
     ArrayList<String> storedEmail = new ArrayList<>();
     Calendar calendar = Calendar.getInstance();
@@ -93,6 +95,12 @@ public class RecieptActivity extends AppCompatActivity {
         myRef = database.getReference().child("Orders").child(emailOrder+""+orderId);
         myRef.child("Orders").child(""+orderId).child("Total").setValue(total);
         myRef.setValue(Arrays.asList(list));
+
+        sharedPreferences2 = getSharedPreferences("MyCart", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences2.edit();
+        editor.clear();
+        editor.apply();
+
 
 
     }

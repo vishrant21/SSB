@@ -31,6 +31,8 @@ public class NewOrderActivity extends AppCompatActivity {
     ArrayList<String> storedEmail = new ArrayList<>();
     ArrayList<String> orderNum = new ArrayList<>();
     ArrayList<String> orderFrom = new ArrayList<>();
+    ArrayList<String> uniqueOrderNums = new ArrayList<>();
+    ArrayList<Integer> uniqueFirstDigit = new ArrayList<>();
     private static final int PERMISSION_REQUEST_CODE = 123;
 
     NotificationManagerCompat notificationManager;
@@ -75,11 +77,20 @@ public class NewOrderActivity extends AppCompatActivity {
                                 // Retrieve the email
                                 notificationManager = NotificationManagerCompat.from(NewOrderActivity.this);
                                 storedEmail = (ArrayList<String>) userSnapshot.child("Email").getValue();
-                                // Do something with the email
-                                showNotification("New Order" ,"Order Number : " +(orderNum.get(orderNum.size() - 1)));
-                                NewOrderAdapter adapter = new NewOrderAdapter(getApplicationContext(), orderNum, firstDigit, storedEmail);
+                                for (int i =0;i<orderNum.size();i++) {
+                                    if (uniqueOrderNums.contains(orderNum.get(i)))
+                                    {
+                                        orderNum.remove(i);
+                                        firstDigit.remove(i);
+                                    } else {
+                                        // Display the ordered items in the ListVie
+                                        uniqueOrderNums.add( orderNum.get(i));
+                                        uniqueFirstDigit.add(firstDigit.get(i));
+                                    }
+                                }
+                                showNotification("New Order" ,"Click to see Items");
+                                NewOrderAdapter adapter = new NewOrderAdapter(getApplicationContext(), uniqueOrderNums , uniqueFirstDigit, storedEmail);
                                 recyclerView.setAdapter(adapter);
-                                Toast.makeText(NewOrderActivity.this, "" + storedEmail, Toast.LENGTH_SHORT).show();
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                             }
 
@@ -90,8 +101,6 @@ public class NewOrderActivity extends AppCompatActivity {
                             }
                         });
                     }
-
-                    Toast.makeText(NewOrderActivity.this, "" + orderNumber, Toast.LENGTH_SHORT).show();
                     // Do something with the order data
                 }
 
