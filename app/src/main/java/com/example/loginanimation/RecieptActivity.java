@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class RecieptActivity extends AppCompatActivity {
     String list[];
     int emailOrder;
     TextView txtOrderNum;
+    Button btnMap;
     DatabaseReference myRef;
     SharedPreferences sharedPreferences2;
     int index =0;
@@ -46,6 +48,7 @@ public class RecieptActivity extends AppCompatActivity {
         listView = findViewById(R.id.lstReciept);
         txtDate = findViewById(R.id.txtDate);
         txtTotal = findViewById(R.id.txtRTotal);
+        btnMap = findViewById(R.id.btnMap);
         txtOrderNum = findViewById(R.id.txtOrderNumber);
 
         intent = getIntent();
@@ -100,6 +103,17 @@ public class RecieptActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences2.edit();
         editor.clear();
         editor.apply();
+
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mapIntent = new Intent(RecieptActivity.this, MapActivity.class);
+                startActivity(mapIntent);
+            }
+        });
+
+
+
     }
 
     @Override

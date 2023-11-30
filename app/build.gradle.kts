@@ -46,6 +46,7 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx:20.2.2")
     implementation("com.google.firebase:firebase-auth:22.2.0")
     implementation ("com.firebaseui:firebase-ui-auth:7.2.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
     testImplementation("junit:junit:4.13.2")
 
     implementation ("com.airbnb.android:lottie:6.1.0")

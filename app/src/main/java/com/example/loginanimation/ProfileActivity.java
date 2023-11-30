@@ -48,6 +48,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     TextView txtPname,txtEmail,txtAddress,txtPhone,btnLogout;
     ArrayList<String> storedEmail = new ArrayList<>();
+    ArrayList<String> storedPhone = new ArrayList<>();
+    ArrayList<String> storedAddress = new ArrayList<>();
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +170,8 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 storedName = (ArrayList<String>) snapshot.child("Name").getValue();
                 storedEmail = (ArrayList<String>) snapshot.child("Email").getValue();
+                storedPhone = (ArrayList<String>) snapshot.child("Phone").getValue();
+                storedAddress = (ArrayList<String>) snapshot.child("Address").getValue();
 
                 txtEmail.setText(""+storedEmail.get(index));
                 txtPname.setText(""+storedName.get(index));

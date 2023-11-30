@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">Sukh Shanti Bhuvan</string>
+    <string name="google_map_api_key" translatable="false">AIzaSyDtt-A6tq6CVed_ywWMPj0312GFIVU0Jcc</string>
 </resources>
+
+
+
+

@@ -1,14 +1,10 @@
 package com.example.loginanimation;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,10 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -46,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
     LottieAnimationView viewAnime;
     ArrayList<String> userName = new ArrayList<>();
     ImageView profileimage;
-    private EditText nameEditText, usernameEditText, passwordEditText;
+    private EditText nameEditText, usernameEditText, passwordEditText,phoneEditText,addressEditText;
     private TextView registerButton;
 
     @SuppressLint("MissingInflatedId")
@@ -65,55 +58,12 @@ public class RegisterActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.nameEditText);
         animationView3 = findViewById(R.id.animationView3);
         animationView4 = findViewById(R.id.animationView4);
+        phoneEditText = findViewById(R.id.phoneEditText);
+        addressEditText = findViewById(R.id.addressEditText);
         viewAnime = findViewById(R.id.viewAnime);
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         registerButton = findViewById(R.id.registerButton);
-
-
-        profileimage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                builder.setTitle("Choose Image Source");
-                builder.setItems(new CharSequence[]{"Camera", "Gallery"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which == 0) {
-                            // User chose the Camera option
-                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            activityResultLauncher.launch(intent);
-                        } else if (which == 1) {
-                            // User chose the Gallery option
-                            Intent intent1 = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            startActivityForResult(intent1, 3);
-                        }
-                    }
-                });
-                builder.show();
-            }
-        });
-
-        activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == RESULT_OK && result.getData() !=null)
-                        {
-                            Bitmap bp = null;
-                            Bundle extras = result.getData().getExtras();
-                            if (extras != null)
-                            {
-                                bp = (Bitmap) extras.get("data");
-                            }
-
-                            profileimage.setImageBitmap(bp);
-                        } else if (result.getResultCode() == RESULT_CANCELED) {
-                            Toast.makeText(RegisterActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
 
 
         DatabaseReference reference = instance.getReference("Users");
@@ -196,16 +146,20 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (isPasswordValid(passwordEditText) && isEmailValid(usernameEditText.getText().toString().trim()))
                 {
-                    if (!nameEditText.getText().toString().equals(null))
+                    if (!nameEditText.getText().toString().equals(null) && !addressEditText.getText().toString().equals(null) && !phoneEditText.getText().toString().equals(null))
                     {
                         Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
 
                         Map<String,Object> al_name = new HashMap<>();
                         Map<String,Object> al_email = new HashMap<>();
                         Map<String,Object> al_pass = new HashMap<>();
+                        Map<String,Object> al_phone = new HashMap<>();
+                        Map<String,Object> al_address = new HashMap<>();
                         al_name.put(userName.size()+"",nameEditText.getText().toString().trim());
                         al_email.put(userName.size()+"",usernameEditText.getText().toString().trim());
                         al_pass.put(userName.size()+"",passwordEditText.getText().toString().trim());
+                        al_pass.put(userName.size()+"",phoneEditText.getText().toString().trim());
+                        al_pass.put(userName.size()+"",addressEditText.getText().toString().trim());
                         reference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -215,6 +169,10 @@ public class RegisterActivity extends AppCompatActivity {
                                 emailRef.updateChildren(al_email);
                                 DatabaseReference passRef = reference.child("Password");
                                 passRef.updateChildren(al_pass);
+                                DatabaseReference phoneRef = reference.child("Phone");
+                                phoneRef.updateChildren(al_phone);
+                                DatabaseReference addRef = reference.child("Address");
+                                addRef.updateChildren(al_address);
 
 
 
@@ -239,6 +197,8 @@ public class RegisterActivity extends AppCompatActivity {
                     else
                     {
                         nameEditText.setError("Please enter Name First");
+                        phoneEditText.setError("Please enter Phone First");
+                        addressEditText.setError("Please enter Address First");
                     }
                 }
                 else
