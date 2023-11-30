@@ -155,7 +155,7 @@ public class ProfileActivity extends AppCompatActivity {
         if (sharedPreferences.getBoolean("isAdminLoggedIn",false))
         {
 //            Toast.makeText(this, "Admin Login "+sharedPreferences.getBoolean("isAdminLoggedIn",false), Toast.LENGTH_SHORT).show();
-            index = 0;
+                index = 0;
         }
         else
         {
@@ -175,6 +175,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                 txtEmail.setText(""+storedEmail.get(index));
                 txtPname.setText(""+storedName.get(index));
+                txtAddress.setText(""+storedAddress.get(index));
+                txtPhone.setText(""+String.valueOf(storedPhone.get(index)));
 
             }
 

@@ -42,6 +42,7 @@
                     android:layout_width="40dp"
                     android:src="@drawable/call"
                     android:layout_weight="1"
+                    android:id="@+id/btnCall"
                     android:layout_height="40dp"/>
             </LinearLayout>
         <TextView

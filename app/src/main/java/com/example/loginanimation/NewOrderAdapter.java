@@ -2,7 +2,9 @@
 package com.example.loginanimation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -10,10 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +35,9 @@ public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.OrderV
     private Context context;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders");
     ArrayList<String> orderNum = new ArrayList<>();
+    ArrayList<String> phone = new ArrayList<>();
     CountDownTimer countDownTimer;
+    String phoneNumber;
     private Handler uiHandler = new Handler();
     ArrayList<String> orderedItems = new ArrayList<>();
     ArrayList<String> uniqueOrderNums = new ArrayList<>();
@@ -101,6 +107,38 @@ public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.OrderV
                 startCountDownTimer(15 * 60 * 1000, holder); // 15 minutes in milliseconds
             }
         });
+        holder.btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users");
+
+                reference1.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        phone = (ArrayList<String>) snapshot.child("Phone").getValue();
+                        phoneNumber = phone.get(index);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                // Create an Intent with the ACTION_DIAL action and the phone number
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:" + phoneNumber));
+
+                // Check if there's a dialer app available to handle this intent
+                if (callIntent.resolveActivity(context.getPackageManager()) != null) {
+                    // Start the dialer activity
+                    context.startActivity(callIntent);
+                } else {
+                    // Display a message if no dialer app is available
+                    Toast.makeText(context, "No dialer application found", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -115,6 +153,7 @@ public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.OrderV
         ListView lstOrder;
         ProgressBar progressBar;
         Button btnAccept;
+        ImageView btnCall;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -124,6 +163,7 @@ public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.OrderV
             progressBar = itemView.findViewById(R.id.progressBar);
             btnAccept = itemView.findViewById(R.id.btnAccept);
             lstOrder = itemView.findViewById(R.id.lstOrder);
+            btnCall = itemView.findViewById(R.id.btnCall);
         }
     }
 

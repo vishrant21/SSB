@@ -158,8 +158,8 @@ public class RegisterActivity extends AppCompatActivity {
                         al_name.put(userName.size()+"",nameEditText.getText().toString().trim());
                         al_email.put(userName.size()+"",usernameEditText.getText().toString().trim());
                         al_pass.put(userName.size()+"",passwordEditText.getText().toString().trim());
-                        al_pass.put(userName.size()+"",phoneEditText.getText().toString().trim());
-                        al_pass.put(userName.size()+"",addressEditText.getText().toString().trim());
+                        al_phone.put(userName.size()+"",phoneEditText.getText().toString().trim());
+                        al_address.put(userName.size()+"",addressEditText.getText().toString().trim());
                         reference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -173,9 +173,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 phoneRef.updateChildren(al_phone);
                                 DatabaseReference addRef = reference.child("Address");
                                 addRef.updateChildren(al_address);
-
-
-
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
